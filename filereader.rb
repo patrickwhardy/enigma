@@ -1,24 +1,20 @@
 require 'pry'
+#require 'File'
 
-class FileReader(ARGV)
+class FileReader
+  attr_accessor :message, :encripted
   def initialize
-    @message = get_message(ARGV[0])
-    @encripted = get_encripted(ARGV[1])
+    @message = File.read(ARGV[0])
+    @encripted = File.read(ARGV[1])
   end
 
-  def get_message(argument)
-    File.open(argument)
+  def get_string(arg)
+    File.read(arg)
   end
 
-  def get_encripted(argument)
-    File.open(argument)
-  end
-
-  def give_message
-  end
-
-  def give_encripted
+  def write_to_file(arg)
+    File.write(arg)
   end
 
 end
-binding.pry
+#binding.pry
