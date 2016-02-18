@@ -1,7 +1,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'filereader'
+require_relative '../lib/filereader'
 require 'pry'
 
 class LinkedlistTest < Minitest::Test

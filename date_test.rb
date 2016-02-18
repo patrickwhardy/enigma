@@ -8,4 +8,5 @@ class DateTest < Minitest::Test
   def test_today_returns_formatted_date
     date = Date.new
     assert_equal date.today
+  end
 end

@@ -1,7 +1,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'enigma'
+require_relative '../lib/enigma'
 
 class EnigmaTest < Minitest::Test
   attr_reader :enigma
@@ -10,9 +10,22 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_encrypt_outputs_encrypted_string
-    enigma.encrypt("whatsup")
-    assert_equal 7,  enigma.encrypted_string.length
+    skip
+    enigma.encrypt("this is so secret ..end..")
+    assert_equal 25,  enigma.encrypted_string.length
   end
+
+  def test_encrypted_string_is_correct
+    enigma.encrypt("helloab")
+    assert_equal "z7lx63b", enigma.encrypted_string
+  end
+
+  def test_decrypt_gets_original_message
+    enigma.encrypt("this is so secret")
+    enigma.decrypt
+    assert_equal "this is so secret", enigma.decrypted_string
+  end
+
 end
 
 # 3] pry(#<Enigma>)> crypto.all_char_arrays.each do |char_array|

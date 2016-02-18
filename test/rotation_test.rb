@@ -2,7 +2,7 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'Date'
-require_relative 'rotation'
+require_relative '../lib/rotation'
 
 class RotationTest < Minitest::Test
   attr_reader :rotation
