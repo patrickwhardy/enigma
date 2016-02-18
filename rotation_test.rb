@@ -30,12 +30,16 @@ class RotationTest < Minitest::Test
   end
 
   def test_key_rotation_outputs_fixnum
-    rotation.date_format
-    rotation.key_rotation
+    rotation.setup
     assert_equal Fixnum, rotation.a.class
     assert_equal Fixnum, rotation.b.class
     assert_equal Fixnum, rotation.c.class
     assert_equal Fixnum, rotation.d.class
+  end
+
+  def test_setup_builds_offset_array
+    rotation.setup
+    assert_equal 4, rotation.offset_array.count
   end
 
 end

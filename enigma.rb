@@ -1,59 +1,52 @@
 require_relative 'filereader'
 require_relative 'rotation'
 require_relative 'crypto'
+require 'pry'
 
 class Enigma
-  attr_reader :map
+  attr_reader :map, :encrypted_string
   def initialize
-    @crypto = Crypto.new
+    #@filereader = FileReader.new
     @rotation = Rotation.new
-    @filereader = Filereader.new
-    @char_map = ["a", "b", "c", "d", "e",
-    "f", "g", "h", "i", "j", "k", "l",
-    "m", "n", "o", "p", "q", "r", "s",
-    "t", "u", "v", "w", "x", "y", "z",
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, " ",
-    ".", ","]
+    @rotation.setup
   end
 
-  def encrypt(message = @message, key = @key, offset = @offset)
-    @encripted_string = ''
-    encrypt_arrays
-    #all_arrays = [a_char, b_char, c_char, d_char]
-    until a_char.shift == nil do
-      @encripted_string + a_char.shift
-      @encripted_string + b_char.shift
-      @encripted_string + c_char.shift
-      @encripted_string + d_char.shift
-    end
-  end
-
-  def encrypt_arrays
+  def encrypt(message = @filereader.message)
+    crypto = Crypto.new(message)
     crypto.build_char_arrays
-    a_char.map! do |char|
-      map_index = @char_map.index(char)
-      char = @char_map(map_index + a + a_offset)
+    @encrypted_string = ''
+    @offset_index = 0
+    crypto.all_char_arrays.each do |char_array|
+      char_array = crypto.encrypt_arrays(char_array, @rotation.offset_array[@offset_index])
+      @offset_index += 1
     end
-    b_char.map! do |char|
-      map_index = @char_map.index(char)
-      char = @char_map(map_index + b + b_offset)
+    until crypto.a_char.count == 0 do
+      crypto.all_char_arrays.each do |array|
+        @encrypted_string.concat(array.slice!(0).to_s)
+      end
     end
-    c_char.map! do |char|
-      map_index = @char_map.index(char)
-      char = @char_map(map_index + c + c_offset)
-    end
-    d_char.map! do |char|
-      map_index = @char_map.index(char)
-      char = @char_map(map_index + d + d_offset)
+    @encrypted_string
+  end
+
+  def decrypt_offset_setup
+    @offset_index = 0
+    @rotation.offset_array each do |array|
+      array.each do |offset|
+        offset = -offset
+      end
     end
   end
 
-  def decrypt(encripted = @encripted, key = @key, offset = @offset)
+  def decrypt(encrypted = @encrypted)
+    crypto = Crypto.new(@encrypted_string)
+    crypto.build_char_arrays
+    decrypt_offset_setup
+
+
   end
 
   def crack(encripted = @encripted)
+    #string length -7 % 4 will return offset index of first . in ..end..
   end
 
 end
-
-binding.pry
