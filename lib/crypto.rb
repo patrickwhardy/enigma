@@ -1,5 +1,4 @@
 require_relative 'enigma'
-require_relative 'filereader'
 require 'pry'
 require 'Date'
 class Crypto
@@ -63,6 +62,7 @@ class Crypto
   def encrypt_arrays(char_array, offset)
     char_array.map! do |char|
       map_index = @char_map.index(char)
+      #binding.pry
       adjusted_index = (map_index + offset)
         adjusted_index = adjusted_index % 39
       char = @char_map[adjusted_index]

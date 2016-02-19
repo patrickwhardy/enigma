@@ -1,4 +1,3 @@
-require_relative 'filereader'
 require_relative 'rotation'
 require_relative 'crypto'
 require 'pry'
@@ -8,6 +7,8 @@ class Enigma
               :rotation
   def initialize
     @rotation = Rotation.new
+    @rotation.generate_key
+    @rotation.date_format
     @rotation.setup
   end
 

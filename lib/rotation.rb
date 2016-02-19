@@ -1,17 +1,17 @@
 require 'pry'
 require 'Date'
 class Rotation
-  attr_reader :a, :b, :c, :d, :a_offset, :b_offset, :c_offset, :d_offset, :today
-  attr_accessor :offset_array, :key
-#!!!!HARD-CODED-KEY-AND-DATE!!!!
+  attr_reader :a, :b, :c, :d, :a_offset, :b_offset, :c_offset, :d_offset
+  attr_accessor :offset_array, :key, :today
+
   def initialize
-    @key = ''#'12345'
+    @key = ''#'12345' - use when hard-coding for test
     @today = ''
   end
 
   def setup
-    generate_key
-    date_format
+    # generate_key
+    # date_format
     key_rotation
     offset_rotation
     final_offset
@@ -25,8 +25,8 @@ class Rotation
     end
     @key
   end
-
-  def date_format(date = Date.new(2016, 2, 16).to_s)#(date = Date.today.to_s)
+#use when hard-coding - (date = Date.new(2016, 2, 16).to_s)
+  def date_format(date = Date.today.to_s)
     @today = date.slice(8..9) + date.slice(5..6) + date.slice(2..3)
     @today
   end
