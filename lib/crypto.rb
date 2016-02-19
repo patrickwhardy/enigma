@@ -58,7 +58,6 @@ class Crypto
     a_and_c_arrays
     b_and_d_arrays
     @all_char_arrays = [@a_char, @b_char, @c_char, @d_char]
-    #binding.pry
   end
 
   def encrypt_arrays(char_array, offset)

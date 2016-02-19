@@ -2,10 +2,10 @@ require 'pry'
 #require 'File'
 
 class FileReader
-  attr_accessor :message, :encripted
+  attr_accessor :message, :encrypted
   def initialize
     @message = File.read(ARGV[0])
-    @encripted = File.read(ARGV[1])
+    @encrypted = File.read(ARGV[1])
   end
 
   def get_string(arg)

@@ -8,11 +8,10 @@ class EnigmaTest < Minitest::Test
   def setup
     @enigma = Enigma.new
   end
-
+#the first two tests are written to work with the key hard-coded as '12345'
   def test_encrypt_outputs_encrypted_string
-    skip
     enigma.encrypt("this is so secret ..end..")
-    assert_equal 25,  enigma.encrypted_string.length
+    assert_equal ". i4p.sj e 4w5rq.0.kwddkq",  enigma.encrypted_string
   end
 
   def test_encrypted_string_is_correct
@@ -26,11 +25,9 @@ class EnigmaTest < Minitest::Test
     assert_equal "this is so secret", enigma.decrypted_string
   end
 
-end
+  def test_that_crack_returns_end
+    enigma.encrypt("this is so secret ..end..")
+    assert_equal "this is so secret ..end..", enigma.crack(enigma.encrypted_string)
+  end
 
-# 3] pry(#<Enigma>)> crypto.all_char_arrays.each do |char_array|
-# [3] pry(#<Enigma>)*   char_array = crypto.encrypt_arrays(char_array, (@rotation.offset_array[@offset_index]))
-# [3] pry(#<Enigma>)*   @offset_index += 1
-# [3] pry(#<Enigma>)* end
-# TypeError: nil can't be coerced into Fixnum
-# from /Users/patrickwhardy/Turing/1module/enigma/crypto.rb:65:in `+'
+end

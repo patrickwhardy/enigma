@@ -1,11 +1,11 @@
 require 'pry'
 require 'Date'
 class Rotation
-  attr_reader :a, :b, :c, :d, :a_offset, :b_offset, :c_offset, :d_offset
-  attr_accessor :offset_array
+  attr_reader :a, :b, :c, :d, :a_offset, :b_offset, :c_offset, :d_offset, :today
+  attr_accessor :offset_array, :key
 #!!!!HARD-CODED-KEY-AND-DATE!!!!
   def initialize
-    @key = '12345'
+    @key = ''#'12345'
     @today = ''
   end
 
@@ -21,7 +21,7 @@ class Rotation
   def generate_key
     5.times do
       i = Random.rand(0..9)
-      # @key << i.to_s
+      @key << i.to_s
     end
     @key
   end
@@ -59,6 +59,3 @@ class Rotation
   end
 
 end
-
-
-#binding.pry

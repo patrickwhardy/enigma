@@ -4,9 +4,9 @@ require_relative 'crypto'
 require 'pry'
 
 class Enigma
-  attr_reader :map, :encrypted_string, :decrypted_string
+  attr_reader :map, :encrypted_string, :decrypted_string,
+              :rotation
   def initialize
-    #@filereader = FileReader.new
     @rotation = Rotation.new
     @rotation.setup
   end
@@ -16,8 +16,6 @@ class Enigma
     crypto.build_char_arrays
     @encrypted_string = ''
     @offset_index = 0
-    #binding.pry
-    #build char arrays is fucked
     crypto.all_char_arrays.each do |char_array|
       char_array = crypto.encrypt_arrays(char_array, @rotation.offset_array[@offset_index])
       @offset_index += 1
@@ -27,8 +25,8 @@ class Enigma
         @encrypted_string.concat(array.slice!(0).to_s)
       end
     end
-
-    @encrypted_string
+    return @encrypted_string
+    #binding.pry
   end
 
   def decrypt(message = @encrypted_string)
@@ -36,7 +34,6 @@ class Enigma
     crypto.build_char_arrays
     @decrypted_string = ''
     @offset_index = 0
-    # binding.pry
     crypto.all_char_arrays.each do |char_array|
       char_array = crypto.decrypt_arrays(char_array, @rotation.offset_array[@offset_index])
       @offset_index += 1
@@ -46,11 +43,25 @@ class Enigma
         @decrypted_string.concat(array.slice!(0).to_s)
       end
     end
-    @decrypted_string
+    return @decrypted_string
   end
 
-  def crack(encrpted = @encrypted)
-    #string length -7 % 4 will return offset index of first . in ..end..
+  def crack(message = @encrypted_string)
+    0.upto(99999) do |key|
+      temp_key = key.to_s.rjust(5, "0")
+      @rotation.key = temp_key
+      temp_message = decrypt(message)
+        return temp_message if temp_message[-7..-1] == "..end.."
+        end
   end
 
 end
+
+# if __FILE__ == $0
+#    e = Enigma.new
+# end
+
+# key = @rotation.key, date = @rotation.date)
+#  @rotation.key = key
+#  @rotation.date_format(date)
+#  @rotation.setup
