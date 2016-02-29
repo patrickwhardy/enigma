@@ -4,8 +4,8 @@ class Rotation
   attr_reader :a, :b, :c, :d, :a_offset, :b_offset, :c_offset, :d_offset
   attr_accessor :offset_array, :key, :today
 
-  def initialize
-    @key = ''#'12345' - use when hard-coding for test
+  def initialize(key='')
+    @key = key #'12345' - use when hard-coding for test
     @today = ''
   end
 

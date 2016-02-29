@@ -9,8 +9,8 @@ class Encrypt
     @today = enigma.rotation.today
   end
 
-  def pass_message_to_enigma
-    message = File.read(ARGV[0])
+  def pass_message_to_enigma(message=nil)
+    message = message || File.read(ARGV[0]) 
     @encrypted_file = enigma.encrypt(message[1..-3])
   end
 

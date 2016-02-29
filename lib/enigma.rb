@@ -27,7 +27,6 @@ class Enigma
       end
     end
     return @encrypted_string
-    #binding.pry
   end
 
   def decrypt(message = @encrypted_string)
